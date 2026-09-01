@@ -8,7 +8,7 @@ import com.drakorid.stream.data.download.DownloadScheduler
 import com.drakorid.stream.data.local.HistoryRepository
 import com.drakorid.stream.data.remote.DramaRepository
 import com.drakorid.stream.ui.approot.AppRoot
-import com.drakorid.stream.ui.theme.DrakoridTheme
+import com.drakorid.stream.ui.theme.DrakoridStreamTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DrakoridTheme {
+            DrakoridStreamTheme {
                 AppRoot(
                     repository = repository,
                     historyRepo = historyRepo,
