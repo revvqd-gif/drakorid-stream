@@ -46,10 +46,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = if (System.getenv("DRAKORID_KEYSTORE_PATH") != null) {
-                signingConfigs.getByName("release")
-            } else {
+            signingConfig = if (System.getenv("DRAKORID_KEYSTORE_PATH").isNullOrBlank()) {
                 signingConfigs.getByName("debug")
+            } else {
+                signingConfigs.getByName("release")
             }
         }
     }
