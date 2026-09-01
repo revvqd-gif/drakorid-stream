@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Drakorid Stream</string>
+    <string name="nav_home">Beranda</string>
+    <string name="nav_search">Cari</string>
+    <string name="nav_schedule">Jadwal</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_downloads">Unduhan</string>
+    <string name="section_ongoing">Sedang Tayang</string>
+    <string name="section_trending">Trending</string>
+    <string name="section_newest">Drama Terbaru</string>
+    <string name="section_favorite">Paling Difavoritkan</string>
+    <string name="section_artist_popular">Artis Populer</string>
+    <string name="section_ost">OST</string>
+    <string name="search_hint">Cari drama favorit...</string>
+    <string name="empty_search">Tidak ada hasil. Coba kata kunci lain.</string>
+    <string name="error_network">Gagal memuat. Periksa koneksi Anda.</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="quality_360p">360p</string>
+    <string name="quality_480p">480p</string>
+    <string name="quality_720p">720p</string>
+    <string name="quality_1080p">1080p</string>
+    <string name="quality_auto">Otomatis</string>
+    <string name="episode_label">Episode %1$d</string>
+    <string name="play">Tonton</string>
+    <string name="download">Unduh</string>
+    <string name="back">Kembali</string>
+</resources>

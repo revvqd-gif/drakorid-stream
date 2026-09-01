@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Local SDK config
+local.properties
+
+# Keystore
+*.jks
+*.keystore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
