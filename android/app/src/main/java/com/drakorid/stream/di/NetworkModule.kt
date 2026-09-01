@@ -5,7 +5,6 @@ import com.drakorid.stream.data.local.AppDatabase
 import com.drakorid.stream.data.local.DownloadDao
 import com.drakorid.stream.data.local.HistoryDao
 import com.drakorid.stream.data.local.HistoryRepository
-import com.drakorid.stream.data.download.DownloadScheduler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,12 +36,4 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHistoryRepository(dao: HistoryDao): HistoryRepository = HistoryRepository(dao)
-
-    @Provides
-    @Singleton
-    fun provideDownloadScheduler(
-        @ApplicationContext context: Context,
-        client: OkHttpClient,
-        dao: DownloadDao,
-    ): DownloadScheduler = DownloadScheduler(context, client, dao)
 }

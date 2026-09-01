@@ -11,7 +11,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.drakorid.stream.data.local.DownloadEntity
 import com.drakorid.stream.data.local.DownloadDao
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import timber.log.Timber
@@ -83,7 +83,7 @@ class EpisodeDownloadWorker(
 
 @Singleton
 class DownloadScheduler @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val client: OkHttpClient,
     private val dao: DownloadDao,
 ) {

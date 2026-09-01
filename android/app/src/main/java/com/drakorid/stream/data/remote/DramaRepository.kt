@@ -1,6 +1,5 @@
 package com.drakorid.stream.data.remote
 
-import com.drakorid.stream.data.local.AppDatabase
 import com.drakorid.stream.domain.model.Drama
 import org.jsoup.Jsoup
 import com.drakorid.stream.domain.model.EpisodeEntry
@@ -11,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,7 +21,6 @@ import javax.inject.Singleton
 class DramaRepository @Inject constructor(
     private val client: OkHttpClient,
     private val tokenProvider: TokenProvider,
-    private val db: AppDatabase,
 ) {
 
     // ------------------------------------------------------------------ //
@@ -140,7 +137,7 @@ class DramaRepository @Inject constructor(
         slug: String,
         episodeNumber: Int,
     ): EpisodeDetail? = io {
-        val token = tokenProvider.getToken()
+        val token = tokenProvider.get()
         val ajaxUrl = "https://drakorid.co/myapi/episode_detail.php?slug=$slug&episode=$episodeNumber&token=$token"
         val json = get(ajaxUrl, xhr = true).body.string()
         val fileId = Regex(""""file_id"\s*:\s*"?(\d+)"?""").find(json)?.groupValues?.get(1) ?: return@io null

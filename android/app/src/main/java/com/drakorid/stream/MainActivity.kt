@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import com.drakorid.stream.data.download.DownloadScheduler
 import com.drakorid.stream.data.local.HistoryRepository
 import com.drakorid.stream.data.remote.DramaRepository
-import com.drakorid.stream.ui.AppRoot.AppRoot
+import com.drakorid.stream.ui.approot.AppRoot
 import com.drakorid.stream.ui.theme.DrakoridTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

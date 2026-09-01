@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.drakorid.stream.data.remote.DramaRepository
 import com.drakorid.stream.domain.model.Drama
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +21,6 @@ fun SearchScreen(
     var query by remember { mutableStateOf("") }
     var results by remember { mutableStateOf<List<Drama>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(query) {
         if (query.length >= 2) {

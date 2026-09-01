@@ -1,8 +1,6 @@
 package com.drakorid.stream.ui.player
 
 import android.net.Uri
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.MediaItem
-import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
@@ -19,7 +16,6 @@ import com.drakorid.stream.data.local.HistoryRepository
 import com.drakorid.stream.data.remote.DramaRepository
 import com.drakorid.stream.domain.model.HistoryEntry
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -32,7 +28,6 @@ fun PlayerScreen(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
-    val activity = LocalActivity.current as ComponentActivity
     val scope = rememberCoroutineScope()
 
     var directUrl by remember { mutableStateOf<String?>(null) }

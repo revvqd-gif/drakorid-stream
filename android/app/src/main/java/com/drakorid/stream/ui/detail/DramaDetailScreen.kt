@@ -14,7 +14,6 @@ import coil.compose.AsyncImage
 import com.drakorid.stream.data.remote.DramaRepository
 import com.drakorid.stream.domain.model.Drama
 import com.drakorid.stream.domain.model.EpisodeEntry
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +25,6 @@ fun DramaDetailScreen(
     var drama by remember { mutableStateOf<Drama?>(null) }
     var episodes by remember { mutableStateOf<List<EpisodeEntry>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(slug) {
         val result = repository.fetchDramaDetail(slug)

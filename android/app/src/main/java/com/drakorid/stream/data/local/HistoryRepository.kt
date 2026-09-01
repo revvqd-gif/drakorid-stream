@@ -1,8 +1,6 @@
 package com.drakorid.stream.data.local
 
 import com.drakorid.stream.domain.model.HistoryEntry
-import com.drakorid.stream.domain.model.Result
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
