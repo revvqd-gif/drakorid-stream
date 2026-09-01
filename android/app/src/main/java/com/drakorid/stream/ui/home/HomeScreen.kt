@@ -11,6 +11,8 @@ import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.async
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,12 +37,14 @@ fun HomeScreen(
 
     LaunchedEffect(Unit) {
         try {
-            val p = async { repository.fetchPopular() }
-            val l = async { repository.fetchLatest() }
-            val o = async { repository.fetchOnGoing() }
-            val c = async { repository.fetchComplete() }
-            val m = async { repository.fetchMovie() }
-            popular = p.await(); latest = l.await(); ongoing = o.await(); complete = c.await(); movie = m.await()
+            coroutineScope {
+                val p = async { repository.fetchPopular() }
+                val l = async { repository.fetchLatest() }
+                val o = async { repository.fetchOnGoing() }
+                val c = async { repository.fetchComplete() }
+                val m = async { repository.fetchMovie() }
+                popular = p.await(); latest = l.await(); ongoing = o.await(); complete = c.await(); movie = m.await()
+            }
         } catch (e: Throwable) {
             error = e.message
         }

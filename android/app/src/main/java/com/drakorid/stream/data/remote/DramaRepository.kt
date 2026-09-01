@@ -28,7 +28,7 @@ class DramaRepository @Inject constructor(
     // ------------------------------------------------------------------ //
 
     suspend fun fetchPopular(): List<Drama> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/populer").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/populer"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -42,7 +42,7 @@ class DramaRepository @Inject constructor(
     }
 
     suspend fun fetchLatest(): List<Drama> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/latest").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/latest"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -56,7 +56,7 @@ class DramaRepository @Inject constructor(
     }
 
     suspend fun fetchOnGoing(): List<Drama> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/ongoing").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/ongoing"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -70,7 +70,7 @@ class DramaRepository @Inject constructor(
     }
 
     suspend fun fetchComplete(): List<Drama> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/complete").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/complete"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -84,7 +84,7 @@ class DramaRepository @Inject constructor(
     }
 
     suspend fun fetchMovie(): List<Drama> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/movie").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/movie"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -102,7 +102,7 @@ class DramaRepository @Inject constructor(
     // ------------------------------------------------------------------ //
 
     suspend fun fetchDramaDetail(slug: String): Pair<Drama, List<EpisodeEntry>> = io {
-        val html = get("https://drakorid.co/drama/$slug").body.string()
+        val html = get("https://drakorid.co/drama/$slug")
         val doc = Jsoup.parse(html)
         val drama = Drama(
             id = (doc.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -139,7 +139,7 @@ class DramaRepository @Inject constructor(
     ): EpisodeDetail? = io {
         val token = tokenProvider.get()
         val ajaxUrl = "https://drakorid.co/myapi/episode_detail.php?slug=$slug&episode=$episodeNumber&token=$token"
-        val json = get(ajaxUrl, xhr = true).body.string()
+        val json = get(ajaxUrl, xhr = true)
         val fileId = Regex(""""file_id"\s*:\s*"?(\d+)"?""").find(json)?.groupValues?.get(1) ?: return@io null
         val direct = "https://admin.drakor.la/go/files/$fileId"
         EpisodeDetail(
@@ -162,7 +162,7 @@ class DramaRepository @Inject constructor(
         slug: String,
         episodeSlug: String,
     ): List<QualityOption> = io {
-        val html = get("https://drakorid.co/watch-fast/$slug/$episodeSlug").body.string()
+        val html = get("https://drakorid.co/watch-fast/$slug/$episodeSlug")
         val doc = Jsoup.parse(html)
         val iframes = doc.select("iframe[srcdoc]")
         iframes.mapIndexedNotNull { idx, iframe ->
@@ -184,7 +184,7 @@ class DramaRepository @Inject constructor(
 
     suspend fun search(query: String): List<Drama> = io {
         if (query.isBlank()) return@io emptyList()
-        val doc = Jsoup.parse(get("https://drakorid.co/search?q=${java.net.URLEncoder.encode(query, "UTF-8")}").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/search?q=${java.net.URLEncoder.encode(query, "UTF-8")}"))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -202,7 +202,7 @@ class DramaRepository @Inject constructor(
     // ------------------------------------------------------------------ //
 
     suspend fun fetchCategories(): List<Category> = io {
-        val html = get("https://drakorid.co/category").body.string()
+        val html = get("https://drakorid.co/category")
         val doc = Jsoup.parse(html)
         doc.select("a[href*=category]").mapNotNull { el ->
             val href = el.attr("href")
@@ -219,7 +219,7 @@ class DramaRepository @Inject constructor(
 
     suspend fun fetchCategoryPage(slug: String, page: Int = 1): List<Drama> = io {
         val url = "https://drakorid.co/category/$slug${if (page > 1) "?page=$page" else ""}"
-        val doc = Jsoup.parse(get(url).body.string())
+        val doc = Jsoup.parse(get(url))
         doc.select(".movie-list .poster, .movie-list .content").map { el ->
             Drama(
                 id = (el.selectFirst("[data-id]")?.attr("data-id")?.toIntOrNull() ?: 0),
@@ -233,7 +233,7 @@ class DramaRepository @Inject constructor(
     }
 
     suspend fun fetchAlphabet(): List<Pair<String, List<Drama>>> = io {
-        val doc = Jsoup.parse(get("https://drakorid.co/alphabet").body.string())
+        val doc = Jsoup.parse(get("https://drakorid.co/alphabet"))
         val results = mutableListOf<Pair<String, List<Drama>>>()
         doc.select("h2, .alphabet-header, .letter").forEach { header ->
             val letter = header.text().take(1).uppercase()
@@ -264,14 +264,14 @@ class DramaRepository @Inject constructor(
     //  HTTP helpers                                                        //
     // ------------------------------------------------------------------ //
 
-    private fun get(url: String, xhr: Boolean = false): okhttp3.Response {
+    private fun get(url: String, xhr: Boolean = false): String {
         val builder = Request.Builder().url(url).get()
         if (xhr) {
             builder.header("X-Requested-With", "XMLHttpRequest")
             builder.header("Referer", "https://drakorid.co/")
         }
         builder.header("User-Agent", "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36")
-        return client.newCall(builder.build()).execute()
+        return client.newCall(builder.build()).execute().use { it.body?.string().orEmpty() }
     }
 
     private suspend fun <T> io(block: suspend () -> T): T = withContext(Dispatchers.IO) { block() }
