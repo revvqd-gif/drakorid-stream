@@ -24,7 +24,7 @@ android {
 
     signingConfigs {
         create("release") {
-            val ksPath = System.getenv("DRAKORID_KEYSTORE_PATH")
+            val ksPath = System.getenv("DRAKORID_KEYSTORE_PATH")?.takeIf { it.isNotBlank() }
             if (ksPath != null) {
                 storeFile = file(ksPath)
                 storePassword = System.getenv("DRAKORID_KEYSTORE_PASSWORD")
